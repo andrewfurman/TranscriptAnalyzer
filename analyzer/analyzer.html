@@ -8,22 +8,16 @@
 <body class="bg-gray-50">
     {% include 'header.html' %}
     
-    <div class="container mx-auto p-6">
+        <div class="px-10 py-6 w-full"> <!-- Changed container mx-auto p-6 to px-10 py-6 w-full -->
         <div class="grid grid-cols-2 gap-6">
             <!-- Left Side - Input -->
             <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-xl font-semibold mb-4">📝 Call Transcript</h2>
-                <form id="analyzeForm" method="POST" action="/analyze">
-                    <textarea 
-                        name="transcript" 
-                        id="transcript" 
-                        rows="20" 
-                        class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="Paste your call transcript here..."></textarea>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-semibold">📝 Call Transcript</h2>
                     <button 
                         type="submit" 
                         id="analyzeButton"
-                        class="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2">
+                        class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2">
                         <span>Analyze Transcript</span>
                         <div id="loadingSpinner" class="hidden">
                             <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -32,11 +26,18 @@
                             </svg>
                         </div>
                     </button>
+                </div>
+                <form id="analyzeForm" method="POST" action="/analyze">
+                    <textarea 
+                        name="transcript" 
+                        id="transcript" 
+                        rows="20" 
+                        class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Paste your call transcript here..."></textarea>
                 </form>
             </div>
-
+            
             <!-- Right Side - Output -->
-            <!-- Replace the existing results section with this code -->
             <div id="analysisResults" class="space-y-4">
                 {% if results %}
                     <!-- Call Type and Sale Status -->
@@ -139,12 +140,6 @@
                         
         </div>
     </div>
-
-    <script>
-        document.getElementById('analyzeForm').addEventListener('submit', function() {
-            document.getElementById('loadingSpinner').classList.remove('hidden');
-            document.getElementById('analyzeButton').disabled = true;
-        });
-    </script>
+    <script src="{{ url_for('static', filename='analyzer.js') }}"></script>
 </body>
 </html>
