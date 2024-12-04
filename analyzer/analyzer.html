@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call Analyzer</title>
+</head>
+<body class="bg-gray-50">
+    {% include 'header.html' %}
+    
+    <div class="container mx-auto p-6">
+        <div class="grid grid-cols-2 gap-6">
+            <!-- Left Side - Input -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">📝 Call Transcript</h2>
+                <form id="analyzeForm" method="POST" action="/analyze">
+                    <textarea 
+                        name="transcript" 
+                        id="transcript" 
+                        rows="20" 
+                        class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Paste your call transcript here..."></textarea>
+                    <button 
+                        type="submit" 
+                        id="analyzeButton"
+                        class="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2">
+                        <span>Analyze Transcript</span>
+                        <div id="loadingSpinner" class="hidden">
+                            <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </div>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Right Side - Output -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">📊 Analysis Results</h2>
+                <div id="analysisResults" class="space-y-4">
+                    {% if results %}
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="col-span-2 bg-gray-50 p-4 rounded-lg">
+                                <h3 class="font-semibold">Call Type:</h3>
+                                <p>{{ results.call_type }}</p>
+                            </div>
+                            <div class="col-span-2 bg-gray-50 p-4 rounded-lg">
+                                <h3 class="font-semibold">Resolution Notes:</h3>
+                                <p>{{ results.resolution_notes }}</p>
+                            </div>
+                        </div>
+                    {% else %}
+                        <p class="text-gray-500 text-center py-8">Analysis results will appear here...</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('analyzeForm').addEventListener('submit', function() {
+            document.getElementById('loadingSpinner').classList.remove('hidden');
+            document.getElementById('analyzeButton').disabled = true;
+        });
+    </script>
+</body>
+</html>
