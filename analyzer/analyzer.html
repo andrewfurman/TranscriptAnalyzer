@@ -36,25 +36,107 @@
             </div>
 
             <!-- Right Side - Output -->
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-xl font-semibold mb-4">📊 Analysis Results</h2>
-                <div id="analysisResults" class="space-y-4">
-                    {% if results %}
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="col-span-2 bg-gray-50 p-4 rounded-lg">
-                                <h3 class="font-semibold">Call Type:</h3>
-                                <p>{{ results.call_type }}</p>
-                            </div>
-                            <div class="col-span-2 bg-gray-50 p-4 rounded-lg">
-                                <h3 class="font-semibold">Resolution Notes:</h3>
-                                <p>{{ results.resolution_notes }}</p>
+            <!-- Replace the existing results section with this code -->
+            <div id="analysisResults" class="space-y-4">
+                {% if results %}
+                    <!-- Call Type and Sale Status -->
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="col-span-2 bg-blue-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-lg mb-2">📞 Call Overview</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <p class="font-medium">Call Type:</p>
+                                    <p>{{ results.call_type }}</p>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Sale Made:</p>
+                                    <p>{{ "✅ Yes" if results.sale_made else "❌ No" }}</p>
+                                </div>
+                                <div class="col-span-2">
+                                    <p class="font-medium">Sale Status:</p>
+                                    <p>{{ results.sale_status_explanation }}</p>
+                                </div>
                             </div>
                         </div>
-                    {% else %}
-                        <p class="text-gray-500 text-center py-8">Analysis results will appear here...</p>
-                    {% endif %}
-                </div>
+                    </div>
+            
+                    <!-- Caller Information -->
+                    <div class="bg-gray-50 p-4 rounded-lg mb-6">
+                        <h3 class="font-semibold text-lg mb-2">👤 Caller Information</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <p class="font-medium">Name:</p>
+                                <p>{{ results.caller_name }}</p>
+                            </div>
+                            <div>
+                                <p class="font-medium">Phone:</p>
+                                <p>{{ results.caller_phone }}</p>
+                            </div>
+                            <div>
+                                <p class="font-medium">Email:</p>
+                                <p>{{ results.caller_email }}</p>
+                            </div>
+                            <div class="col-span-2">
+                                <p class="font-medium">Address:</p>
+                                <p>{{ results.caller_address }}</p>
+                            </div>
+                            <div>
+                                <p class="font-medium">City:</p>
+                                <p>{{ results.caller_city }}</p>
+                            </div>
+                            <div>
+                                <p class="font-medium">State:</p>
+                                <p>{{ results.caller_state }}</p>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- Call Details -->
+                    <div class="bg-gray-50 p-4 rounded-lg mb-6">
+                        <h3 class="font-semibold text-lg mb-2">📋 Call Details</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <p class="font-medium">Duration:</p>
+                                <p>{{ results.duration }}</p>
+                            </div>
+                            <div>
+                                <p class="font-medium">Status:</p>
+                                <p>{{ results.status }}</p>
+                            </div>
+                            <div class="col-span-2">
+                                <p class="font-medium">Notes:</p>
+                                <p>{{ results.notes }}</p>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- Resolution Information -->
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-lg mb-2">✅ Resolution</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="col-span-2">
+                                <p class="font-medium">Resolution Status:</p>
+                                <p>{{ results.resolution }}</p>
+                            </div>
+                            <div class="col-span-2">
+                                <p class="font-medium">Resolution Notes:</p>
+                                <p>{{ results.resolution_notes }}</p>
+                            </div>
+                            <div>
+                                <p class="font-medium">Resolution Date:</p>
+                                <p>{{ results.resolution_date }}</p>
+                            </div>
+                            <div>
+                                <p class="font-medium">Resolution Time:</p>
+                                <p>{{ results.resolution_time }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <p class="text-gray-500 text-center py-8">Analysis results will appear here...</p>
+                {% endif %}
             </div>
+                        
         </div>
     </div>
 
